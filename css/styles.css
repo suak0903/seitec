@@ -193,7 +193,7 @@ em{ font-style:italic; color:var(--accent-dark); font-weight:inherit; }
 .nav__logo-grid{
   display:grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr;
   gap: 2px;
-  width: 38px; height: 38px;
+  width: 32px; height: 32px;
   flex-shrink: 0;
 }
 .nav__logo-tile{
@@ -238,7 +238,7 @@ em{ font-style:italic; color:var(--accent-dark); font-weight:inherit; }
 .nav__logo-tile--4{ -webkit-mask-image: url(../media/s4.png); mask-image: url(../media/s4.png); }
 @media (max-width: 1023px){
   .nav__logo{ gap: 8px; }
-  .nav__logo-grid{ width: 36px; height: 36px; }
+  .nav__logo-grid{ width: 30px; height: 30px; }
 }
 .nav__links{
   display:flex; align-items:center; gap:32px;
@@ -262,10 +262,13 @@ em{ font-style:italic; color:var(--accent-dark); font-weight:inherit; }
 .nav__links a.is-active::after{ width:100%; }
 .nav__actions{ display:flex; align-items:center; gap:14px; }
 .nav__phone{
-  font-family:var(--font-mono); font-size:12px; font-weight:500;
-  letter-spacing:0.04em; color:var(--on-dark); text-decoration:none;
-  border:1.5px solid rgba(239,234,224,.4); padding:10px 14px;
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:var(--font-mono); font-size:11px; font-weight:500;
+  letter-spacing:0.06em; color:var(--on-dark); text-decoration:none;
+  border:1px solid rgba(239,234,224,.4); padding:7px 12px;
+  transition: border-color .2s ease;
 }
+.nav__phone svg{ width:14px; height:14px; flex-shrink:0; }
 .nav__phone:hover{ border-color:var(--on-dark); }
 
 .nav__burger{
@@ -286,11 +289,11 @@ em{ font-style:italic; color:var(--accent-dark); font-weight:inherit; }
 @media (max-width: 1023px){
   .nav__links{ display:none; }
   .nav__burger{ display:flex; }
-  .nav__actions{ gap: 8px; }
+  .nav__actions{ gap: 6px; }
   .nav__phone{ display: none; }
   .social--nav{ gap: 4px; }
-  .social--nav .social__link{ width: 36px; height: 36px; }
-  .social--nav .social__link svg{ width: 15px; height: 15px; }
+  .social--nav .social__link{ width: 30px; height: 30px; }
+  .social--nav .social__link svg{ width: 13px; height: 13px; }
   .social--nav .social__link--phone{ display: inline-flex; }
 }
 /* When the mobile menu is open, hide every icon in the header — they're
@@ -335,6 +338,7 @@ body.menu-open .nav{ right: var(--menu-scrollbar-comp, 0); }
   transition: background .2s ease;
 }
 .nav__mobile a{
+  display: block; padding: 4px 0;
   font-family:var(--font-display); font-weight:300; font-size:22px;
   color:var(--on-dark); text-decoration:none; letter-spacing:-0.015em;
   transition: color .2s ease;
@@ -365,15 +369,18 @@ body.menu-open .nav{ right: var(--menu-scrollbar-comp, 0); }
 }
 .social__link svg{ width: 18px; height: 18px; display:block; }
 
-.social--nav{ margin-top: 0; gap: 6px; }
-.social--nav .social__link{ width: 38px; height: 38px; border-color: rgba(239,234,224,.4); }
-.social--nav .social__link svg{ width: 16px; height: 16px; }
+.social--nav{ margin-top: 0; gap: 6px; flex-wrap: nowrap; }
+.social--nav .social__link{ width: 32px; height: 32px; border-color: rgba(239,234,224,.4); }
+.social--nav .social__link svg{ width: 14px; height: 14px; }
 
+.social--mobile{ flex-wrap: nowrap; gap: 8px; }
+.social--mobile .social__link{ width: 36px; height: 36px; }
+.social--mobile .social__link svg{ width: 16px; height: 16px; }
 /* Wide phone pill inside the mobile menu — keeps the number visible. */
 .social--mobile .social__link--phone-text{
-  width: auto; padding: 0 16px; gap: 12px;
-  font-family: var(--font-mono); font-size: 12px;
-  letter-spacing: 0.08em; color: var(--on-dark);
+  width: auto; padding: 0 12px; gap: 8px;
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.06em; color: var(--on-dark);
 }
 .social--mobile .social__link--phone-text span{ display:inline; }
 
@@ -1053,6 +1060,7 @@ body.menu-open .nav{ right: var(--menu-scrollbar-comp, 0); }
 .form input,
 .form textarea,
 .form select{
+  width: 100%; min-width: 0; max-width: 100%;
   font-family:var(--font-body); font-size:15px; color:var(--ink);
   background: var(--paper-soft);
   border: 1.5px solid var(--rule); border-radius:0;
