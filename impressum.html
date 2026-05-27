@@ -13,7 +13,15 @@
 
 <header class="nav solid" id="nav">
   <div class="container nav__inner">
-    <a class="nav__logo" href="index.html">SEITtec<span class="dot">.</span></a>
+    <a class="nav__logo" href="index.html" aria-label="SEITtec — zur Startseite">
+      <span class="nav__logo-grid" aria-hidden="true">
+        <span class="nav__logo-tile nav__logo-tile--1"></span>
+        <span class="nav__logo-tile nav__logo-tile--2"></span>
+        <span class="nav__logo-tile nav__logo-tile--3"></span>
+        <span class="nav__logo-tile nav__logo-tile--4"></span>
+      </span>
+      <span class="nav__logo-text">SEITtec<span class="dot">.</span></span>
+    </a>
     <nav aria-label="Hauptnavigation">
       <ul class="nav__links">
         <li><a href="index.html#leistungen">Leistungen</a></li>
@@ -24,25 +32,50 @@
       </ul>
     </nav>
     <div class="nav__actions">
-      <a class="nav__phone" href="tel:+49201212100">0201 · 21 21 00</a>
-      <a class="btn btn--accent" href="index.html#kontakt" style="padding: 13px 22px;">Termin anfragen <span class="arrow"></span></a>
-      <button class="nav__burger" id="burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span><span></span></button>
+      <a class="nav__phone" href="tel:+49201212100" aria-label="Telefon 0201 · 21 21 00">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
+        <span>0201 · 21 21 00</span>
+      </a>
+      <nav class="social social--nav" aria-label="Soziale Netzwerke">
+        <a class="social__link" href="https://www.facebook.com/seittecgmbh" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a class="social__link" href="https://www.instagram.com/seittecgmbh/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+      </nav>
+      <button class="nav__burger" id="burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </div>
 </header>
 
 <aside class="nav__mobile" id="mobile-menu" aria-hidden="true">
+  <p class="nav__mobile-slogan">Sicherheit. Strom. <em>Verbindung.</em><br/>Aus einer Hand.</p>
   <ol>
-    <li><span class="idx">01</span><a href="index.html#leistungen">Leistungen</a></li>
-    <li><span class="idx">02</span><a href="index.html#bereiche">Bereiche</a></li>
-    <li><span class="idx">03</span><a href="index.html#vorgehen">Arbeitsweise</a></li>
-    <li><span class="idx">04</span><a href="index.html#unternehmen">Betrieb</a></li>
-    <li><span class="idx">05</span><a href="index.html#kontakt">Kontakt</a></li>
+    <li><span class="idx" aria-hidden="true"></span><a href="index.html#leistungen">Leistungen</a></li>
+    <li><span class="idx" aria-hidden="true"></span><a href="index.html#bereiche">Bereiche</a></li>
+    <li><span class="idx" aria-hidden="true"></span><a href="index.html#vorgehen">Arbeitsweise</a></li>
+    <li><span class="idx" aria-hidden="true"></span><a href="index.html#unternehmen">Betrieb</a></li>
+    <li><span class="idx" aria-hidden="true"></span><a href="index.html#kontakt">Kontakt</a></li>
   </ol>
-  <div class="actions">
-    <a class="btn btn--accent" href="index.html#kontakt">Termin anfragen <span class="arrow"></span></a>
-    <a class="btn btn--ghost" href="tel:+49201212100">0201 · 21 21 00</a>
-  </div>
+
+  <nav class="social social--mobile" aria-label="Kontakt &amp; soziale Netzwerke">
+    <a class="social__link social__link--phone-text" href="tel:+49201212100" aria-label="Telefon 0201 · 21 21 00">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
+      <span>0201 · 21 21 00</span>
+    </a>
+    <a class="social__link" href="mailto:info@seittec.de" aria-label="E-Mail">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+    </a>
+    <a class="social__link" href="https://www.facebook.com/seittecgmbh" target="_blank" rel="noopener" aria-label="Facebook">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+    </a>
+    <a class="social__link" href="https://www.instagram.com/seittecgmbh/" target="_blank" rel="noopener" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+    </a>
+  </nav>
 </aside>
 
 <main id="main" class="article">

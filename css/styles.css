@@ -111,7 +111,14 @@ body{
   background:var(--paper);
   -webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility;
+  overflow-x: clip;          /* belt-and-suspenders against rogue horizontal overflow */
+  overflow-wrap: break-word; /* long German compound words can break if they must */
 }
+/* Flex children carrying text need this to honour the wrap; without it,
+   they refuse to shrink below their longest-word width and push out of the row.
+   Targeted at the FAQ <summary> blocks on the leistung-* pages. */
+details > summary{ min-width: 0; }
+details > summary > *{ min-width: 0; }
 section[id]{ scroll-margin-top: calc(var(--nav-h) + 24px - var(--section-pad)); }
 img{ max-width:100%; display:block; }
 ::selection{ background:rgba(var(--accent-rgb),.16); color:var(--ink); }
@@ -331,15 +338,15 @@ body.menu-open .nav{ right: var(--menu-scrollbar-comp, 0); }
   border: 1.5px solid var(--accent-on-dark);
   transition: background .2s ease;
 }
-.nav__mobile a{
+.nav__mobile ol a{
   display: block; padding: 4px 0;
   font-family:var(--font-display); font-weight:300; font-size:22px;
   color:var(--on-dark); text-decoration:none; letter-spacing:-0.015em;
   transition: color .2s ease;
 }
-.nav__mobile a:hover,
-.nav__mobile a:focus-visible,
-.nav__mobile a.is-active{ color: var(--accent-on-dark); }
+.nav__mobile ol a:hover,
+.nav__mobile ol a:focus-visible,
+.nav__mobile ol a.is-active{ color: var(--accent-on-dark); }
 .nav__mobile li:has(a.is-active) .idx,
 .nav__mobile li:has(a:hover) .idx{ background: var(--accent-on-dark); }
 .nav__mobile .actions{ margin-top:24px; display:grid; gap:14px; }
@@ -1211,6 +1218,17 @@ body.menu-open .nav{ right: var(--menu-scrollbar-comp, 0); }
 .split .body p{ color:var(--ink-soft); line-height:1.7; margin-bottom: 16px; max-width:48ch; }
 .split .body p:last-child{ margin-bottom:0; }
 @media (max-width: 1023px){ .split{ grid-template-columns:1fr; gap:48px; } }
+
+/* Subpage CTA — text on left, button stack on right (collapses on mobile) */
+.next-step{
+  display: grid; grid-template-columns: 1fr auto;
+  gap: 48px; align-items: end;
+}
+.next-step > div:last-child{ display: grid; gap: 12px; }
+@media (max-width: 1023px){
+  .next-step{ grid-template-columns: 1fr; gap: 32px; align-items: stretch; }
+  .next-step > div:last-child{ justify-items: start; }
+}
 
 /* Article (legal pages) */
 .article{
