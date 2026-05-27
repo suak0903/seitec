@@ -281,11 +281,6 @@ em{ font-style:italic; color:var(--accent-dark); font-weight:inherit; }
 .nav__burger.open span:nth-child(2){ opacity:0; }
 .nav__burger.open span:nth-child(3){ transform:translateY(-6.5px) rotate(-45deg); }
 
-/* Desktop keeps the phone number visible as a text pill, so the phone icon
-   in the header social row is hidden there. Mobile drops the pill and shows
-   the phone as an icon alongside mail / facebook / instagram. */
-.social--nav .social__link--phone{ display: none; }
-
 @media (max-width: 1023px){
   .nav__links{ display:none; }
   .nav__burger{ display:flex; }
@@ -294,7 +289,6 @@ em{ font-style:italic; color:var(--accent-dark); font-weight:inherit; }
   .social--nav{ gap: 4px; }
   .social--nav .social__link{ width: 30px; height: 30px; }
   .social--nav .social__link svg{ width: 13px; height: 13px; }
-  .social--nav .social__link--phone{ display: inline-flex; }
 }
 /* When the mobile menu is open, hide every icon in the header — they're
    already inside the menu, so the bar only carries logo + close burger. */
