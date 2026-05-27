@@ -1,0 +1,1617 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SEITtec · Designsystem v1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+/* =========================================================
+   SEITtec · Designsystem v1 — Tokens
+   ========================================================= */
+:root {
+  /* Brand — Stahlblau als Anker, Signal-Orange als Akzent */
+  --st-stahl:        #14375A;   /* primary brand, technisch & vertrauenswürdig */
+  --st-stahl-tief:   #0E2640;   /* hover, dark surface */
+  --st-stahl-soft:   #2A547C;   /* secondary support */
+  --st-signal:       #E76F2C;   /* CTA / Akzent — Ruhrpott-Wärme, Hochofen */
+  --st-signal-tief:  #C45A1E;   /* hover */
+
+  /* Neutrale Schiene — warm-grau, nicht steril */
+  --st-anthrazit:    #16191C;
+  --st-graphit:      #353A40;
+  --st-stein:        #6B7480;
+  --st-stein-hell:   #A6ADB5;
+  --st-beton:        #E0DED8;   /* Trennlinien, Surface 2 */
+  --st-papier:       #F4F1EB;   /* Canvas, warm off-white */
+  --st-papier-soft:  #F9F7F2;
+  --st-weiss:        #FFFFFF;
+
+  /* Funktional */
+  --st-ok:           #3F8A5C;
+  --st-warn:         #C8941E;
+  --st-fehler:       #B43B2E;
+
+  /* RGB tuples für transparente Layer */
+  --st-stahl-rgb:    20,55,90;
+  --st-signal-rgb:   231,111,44;
+  --st-anthrazit-rgb:22,25,28;
+
+  /* Type */
+  --font-display:    "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-body:       "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-mono:       "Geist Mono", ui-monospace, monospace;
+  --font-akzent:     "Instrument Serif", Georgia, serif;
+
+  /* Spacing scale (4er Basis) */
+  --s-1: 4px;   --s-2: 8px;   --s-3: 12px;  --s-4: 16px;
+  --s-5: 20px;  --s-6: 24px;  --s-8: 32px;  --s-10: 40px;
+  --s-12: 48px; --s-16: 64px; --s-20: 80px; --s-24: 96px;
+
+  /* Radius — sehr zurückhaltend, Handwerk = kantig, aber nicht hart */
+  --r-sm: 2px;
+  --r-md: 4px;
+  --r-lg: 8px;
+
+  /* Shadows */
+  --sh-card:   0 1px 0 rgba(var(--st-anthrazit-rgb),0.04), 0 8px 20px -10px rgba(var(--st-anthrazit-rgb),0.12);
+  --sh-card-h: 0 1px 0 rgba(var(--st-anthrazit-rgb),0.06), 0 18px 36px -12px rgba(var(--st-anthrazit-rgb),0.22);
+
+  /* Container */
+  --container: 1200px;
+  --pad-x: 32px;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--st-anthrazit);
+  background: var(--st-papier);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Display & headings */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--st-anthrazit);
+  margin: 0;
+  text-wrap: balance;
+}
+h1 { font-size: clamp(40px, 5.6vw, 68px); line-height: 1.02; letter-spacing: -0.03em; font-weight: 500; }
+h2 { font-size: clamp(28px, 3.2vw, 40px); line-height: 1.08; }
+h3 { font-size: 22px; line-height: 1.2; }
+h4 { font-size: 17px; line-height: 1.3; font-weight: 600; }
+p  { margin: 0; }
+
+a { color: var(--st-stahl); text-decoration: none; }
+a:hover { color: var(--st-signal); }
+
+/* Eyebrow / Labels */
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--st-signal);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.eyebrow::before {
+  content: "";
+  width: 22px;
+  height: 1px;
+  background: currentColor;
+  display: inline-block;
+}
+
+.mono { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.02em; color: var(--st-stein); }
+
+/* =========================================================
+   Layout — DS-Showcase
+   ========================================================= */
+.shell {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--pad-x);
+}
+
+.ds-header {
+  background: var(--st-anthrazit);
+  color: var(--st-papier-soft);
+  padding: 64px 0 80px;
+  border-bottom: 1px solid #000;
+  position: relative;
+  overflow: hidden;
+}
+.ds-header::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 6px;
+  background: linear-gradient(
+    to right,
+    var(--st-stahl) 0 33%,
+    var(--st-signal) 33% 66%,
+    var(--st-papier) 66% 100%
+  );
+}
+.ds-header h1 { color: var(--st-papier-soft); }
+.ds-header .meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-top: 32px;
+  font-size: 13px;
+  color: var(--st-stein-hell);
+}
+.ds-header .meta b { color: var(--st-weiss); font-weight: 500; }
+.brand-wordmark {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  color: var(--st-papier-soft);
+  display: inline-flex;
+  align-items: baseline;
+  gap: 1px;
+}
+.brand-wordmark .dot { color: var(--st-signal); }
+
+/* Sections */
+.section {
+  padding: 96px 0;
+  border-bottom: 1px solid var(--st-beton);
+}
+.section + .section { /* tighter rhythm */ }
+.section.alt { background: var(--st-papier-soft); }
+.section.dark { background: var(--st-anthrazit); color: var(--st-papier-soft); }
+.section.dark h2, .section.dark h3 { color: var(--st-weiss); }
+.section.dark .lead { color: var(--st-stein-hell); }
+
+.section-head {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 64px;
+  align-items: end;
+  margin-bottom: 56px;
+}
+.section-head .num {
+  font-family: var(--font-akzent);
+  font-style: italic;
+  font-size: 56px;
+  line-height: 1;
+  color: var(--st-stein);
+  font-weight: 400;
+}
+.section-head .lead {
+  font-size: 17px;
+  color: var(--st-graphit);
+  max-width: 60ch;
+  margin-top: 16px;
+  line-height: 1.55;
+}
+
+/* =========================================================
+   1 · Marke & Haltung
+   ========================================================= */
+.brand-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+.principles {
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--st-beton);
+}
+.principle {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 24px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--st-beton);
+  align-items: baseline;
+}
+.principle .idx {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--st-signal);
+  font-weight: 500;
+}
+.principle h4 { margin-bottom: 6px; }
+.principle p { color: var(--st-graphit); font-size: 15px; line-height: 1.5; }
+
+.logo-panel {
+  background: var(--st-weiss);
+  border: 1px solid var(--st-beton);
+  padding: 48px;
+  position: relative;
+}
+.logo-panel .tag {
+  position: absolute;
+  top: 16px; right: 16px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--st-stein);
+}
+.logo-stack { display: grid; gap: 36px; }
+.logo-lockup {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 56px;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  color: var(--st-stahl);
+  display: inline-flex;
+  align-items: baseline;
+}
+.logo-lockup .dot { color: var(--st-signal); }
+.logo-lockup--small { font-size: 28px; }
+.logo-lockup--mono { color: var(--st-anthrazit); }
+.logo-lockup--mono .dot { color: var(--st-anthrazit); }
+.logo-lockup--invert { color: var(--st-papier-soft); }
+.logo-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 0;
+  border-top: 1px dashed var(--st-beton);
+}
+.logo-row:first-child { border-top: none; }
+.logo-row.dark {
+  background: var(--st-anthrazit);
+  margin: 0 -48px;
+  padding: 24px 48px;
+}
+.logo-row .lbl {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--st-stein);
+  margin-left: auto;
+}
+.logo-row.dark .lbl { color: var(--st-stein-hell); }
+
+/* =========================================================
+   2 · Farben
+   ========================================================= */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.swatch {
+  background: var(--st-weiss);
+  border: 1px solid var(--st-beton);
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: 140px auto;
+}
+.swatch .chip {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.swatch .chip .role {
+  position: absolute;
+  top: 12px; left: 14px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.swatch.on-light .chip .role { color: rgba(0,0,0,0.45); }
+.swatch.on-dark .chip .role { color: rgba(255,255,255,0.6); }
+.swatch .info {
+  padding: 14px 16px 16px;
+  display: grid;
+  gap: 2px;
+}
+.swatch .name {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 17px;
+  color: var(--st-anthrazit);
+  letter-spacing: -0.01em;
+}
+.swatch .hex {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--st-stein);
+}
+.swatch .hex .var { color: var(--st-graphit); }
+
+.color-section { margin-bottom: 40px; }
+.color-section h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--st-stein);
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--st-beton);
+}
+
+/* Color usage band */
+.usage-band {
+  margin-top: 48px;
+  border: 1px solid var(--st-beton);
+  background: var(--st-weiss);
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  height: 56px;
+  overflow: hidden;
+}
+.usage-band > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.ub-papier   { background: var(--st-papier);   grid-column: span 5; color: var(--st-stein); }
+.ub-weiss    { background: var(--st-weiss);    grid-column: span 2; color: var(--st-stein); border-left: 1px solid var(--st-beton); border-right: 1px solid var(--st-beton); }
+.ub-anthr    { background: var(--st-anthrazit);grid-column: span 1; color: var(--st-stein-hell); }
+.ub-stahl    { background: var(--st-stahl);    grid-column: span 1; color: rgba(255,255,255,0.7); }
+.ub-signal   { background: var(--st-signal);   grid-column: span 1; color: rgba(255,255,255,0.85); }
+.usage-cap {
+  display: grid;
+  grid-template-columns: 5fr 2fr 1fr 1fr 1fr;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--st-stein);
+  margin-top: 8px;
+}
+.usage-cap > div { padding: 0 4px; }
+
+/* =========================================================
+   3 · Typografie
+   ========================================================= */
+.type-stack { display: grid; gap: 0; }
+.type-row {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 32px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--st-beton);
+  align-items: baseline;
+}
+.type-row:first-child { border-top: 1px solid var(--st-beton); }
+.type-row .meta-col {
+  display: grid;
+  gap: 4px;
+}
+.type-row .meta-col .label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--st-signal);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.type-row .meta-col .spec {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--st-stein);
+  line-height: 1.5;
+}
+.demo--h1 { font-family: var(--font-display); font-weight: 500; font-size: 64px; line-height: 1.02; letter-spacing: -0.03em; color: var(--st-anthrazit); }
+.demo--h2 { font-family: var(--font-display); font-weight: 500; font-size: 40px; line-height: 1.08; letter-spacing: -0.02em; color: var(--st-anthrazit); }
+.demo--h3 { font-family: var(--font-display); font-weight: 500; font-size: 24px; line-height: 1.2; letter-spacing: -0.01em; color: var(--st-anthrazit); }
+.demo--lead { font-family: var(--font-body); font-weight: 400; font-size: 20px; line-height: 1.45; color: var(--st-graphit); }
+.demo--body { font-family: var(--font-body); font-weight: 400; font-size: 16px; line-height: 1.65; color: var(--st-anthrazit); max-width: 60ch; }
+.demo--small { font-family: var(--font-body); font-weight: 400; font-size: 13px; line-height: 1.55; color: var(--st-stein); }
+.demo--mono { font-family: var(--font-mono); font-size: 13px; color: var(--st-graphit); letter-spacing: 0.02em; }
+.demo--akzent { font-family: var(--font-akzent); font-style: italic; font-size: 44px; line-height: 1.05; color: var(--st-stahl); }
+
+.type-row .demo em.serif {
+  font-family: var(--font-akzent);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--st-stahl);
+}
+
+/* Type pairing demo */
+.type-demo-card {
+  margin-top: 48px;
+  background: var(--st-weiss);
+  border: 1px solid var(--st-beton);
+  padding: 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+.type-demo-card h2 { font-size: 44px; }
+.type-demo-card .num-block {
+  font-family: var(--font-akzent);
+  font-style: italic;
+  font-size: 180px;
+  line-height: 0.9;
+  color: var(--st-stahl);
+  font-weight: 400;
+}
+
+/* =========================================================
+   4 · Spacing & Grid
+   ========================================================= */
+.spacing-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.space-card {
+  background: var(--st-weiss);
+  border: 1px solid var(--st-beton);
+  padding: 20px;
+  display: grid;
+  gap: 10px;
+}
+.space-card .bar {
+  height: 14px;
+  background: var(--st-stahl);
+  position: relative;
+}
+.space-card .bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent 0 3px,
+    rgba(255,255,255,0.18) 3px 6px
+  );
+}
+.space-card .spec {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--st-stein);
+  display: flex;
+  justify-content: space-between;
+}
+.space-card .spec b { color: var(--st-anthrazit); font-weight: 500; }
+
+/* =========================================================
+   5 · Buttons & Form
+   ========================================================= */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 13px 22px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1.5px solid transparent;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  transition: all 160ms ease;
+  text-decoration: none;
+  line-height: 1;
+}
+.btn .arrow {
+  width: 14px; height: 10px;
+  position: relative;
+  flex-shrink: 0;
+}
+.btn .arrow::before,
+.btn .arrow::after {
+  content: "";
+  position: absolute;
+  background: currentColor;
+}
+.btn .arrow::before { left: 0; right: 0; top: 50%; height: 1.5px; transform: translateY(-50%); }
+.btn .arrow::after {
+  right: 0; top: 50%;
+  width: 8px; height: 8px;
+  border-top: 1.5px solid currentColor;
+  border-right: 1.5px solid currentColor;
+  background: transparent;
+  transform: translateY(-50%) rotate(45deg);
+}
+.btn--primary { background: var(--st-signal); color: var(--st-weiss); }
+.btn--primary:hover { background: var(--st-signal-tief); }
+.btn--secondary { background: var(--st-stahl); color: var(--st-weiss); }
+.btn--secondary:hover { background: var(--st-stahl-tief); }
+.btn--outline { background: transparent; color: var(--st-anthrazit); border-color: var(--st-anthrazit); }
+.btn--outline:hover { background: var(--st-anthrazit); color: var(--st-weiss); }
+.btn--ghost { background: transparent; color: var(--st-stahl); padding-left: 0; padding-right: 0; }
+.btn--ghost:hover { color: var(--st-signal); }
+
+.btn-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.btn-row + .btn-row { margin-top: 16px; }
+
+.field-stack { display: grid; gap: 20px; max-width: 460px; }
+.field { display: grid; gap: 6px; }
+.field label {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--st-graphit);
+}
+.field label .req { color: var(--st-signal); }
+.field input,
+.field textarea,
+.field select {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--st-anthrazit);
+  background: var(--st-weiss);
+  border: 1.5px solid var(--st-beton);
+  border-radius: var(--r-sm);
+  padding: 12px 14px;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+  outline: none;
+}
+.field input:focus,
+.field textarea:focus,
+.field select:focus {
+  border-color: var(--st-stahl);
+  box-shadow: 0 0 0 3px rgba(var(--st-stahl-rgb), 0.12);
+}
+.field textarea { min-height: 110px; resize: vertical; }
+.field .hint {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--st-stein);
+}
+
+/* =========================================================
+   6 · Komponenten — Leistungs-Karten, Stat-Bar, Quote
+   ========================================================= */
+.leistung-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.leistung-card {
+  background: var(--st-weiss);
+  border: 1px solid var(--st-beton);
+  padding: 28px 24px 24px;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  gap: 14px;
+  transition: box-shadow 200ms ease, transform 200ms ease, border-color 200ms ease;
+  position: relative;
+  min-height: 280px;
+}
+.leistung-card:hover {
+  border-color: var(--st-stahl);
+  box-shadow: var(--sh-card-h);
+}
+.leistung-card .num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--st-signal);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+}
+.leistung-card .icon {
+  width: 36px; height: 36px;
+  color: var(--st-stahl);
+  margin-bottom: 4px;
+}
+.leistung-card h3 {
+  font-size: 22px;
+  letter-spacing: -0.015em;
+}
+.leistung-card p {
+  font-size: 14px;
+  color: var(--st-graphit);
+  line-height: 1.55;
+}
+.leistung-card .more {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--st-stahl);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+}
+.leistung-card .more::after {
+  content: "→";
+  transition: transform 160ms ease;
+}
+.leistung-card:hover .more::after { transform: translateX(3px); }
+
+/* Stat / Trust-Bar */
+.stat-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--st-beton);
+  border-bottom: 1px solid var(--st-beton);
+  margin-top: 48px;
+}
+.stat {
+  padding: 32px 24px;
+  border-right: 1px solid var(--st-beton);
+}
+.stat:last-child { border-right: none; }
+.stat .num {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 48px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--st-stahl);
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+.stat .num .unit {
+  font-family: var(--font-akzent);
+  font-style: italic;
+  font-size: 28px;
+  color: var(--st-signal);
+  font-weight: 400;
+}
+.stat .lbl {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--st-graphit);
+  margin-top: 8px;
+  max-width: 22ch;
+  line-height: 1.4;
+}
+
+/* Quote / Referenz */
+.quote-card {
+  background: var(--st-anthrazit);
+  color: var(--st-papier-soft);
+  padding: 56px 48px;
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 32px;
+  align-items: start;
+  position: relative;
+  overflow: hidden;
+}
+.quote-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 4px;
+  background: var(--st-signal);
+}
+.quote-card .q-mark {
+  font-family: var(--font-akzent);
+  font-style: italic;
+  font-size: 120px;
+  line-height: 0.8;
+  color: var(--st-signal);
+  font-weight: 400;
+}
+.quote-card blockquote {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  color: var(--st-weiss);
+  text-wrap: pretty;
+}
+.quote-card cite {
+  display: block;
+  margin-top: 20px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-style: normal;
+  color: var(--st-stein-hell);
+  letter-spacing: 0.04em;
+}
+.quote-card cite b { color: var(--st-weiss); font-weight: 500; }
+
+/* =========================================================
+   7 · Beispielkomposition (Hero + Leistungen Preview)
+   ========================================================= */
+.preview-frame {
+  background: var(--st-weiss);
+  border: 1px solid var(--st-beton);
+  margin-top: 56px;
+}
+.preview-frame .frame-bar {
+  background: var(--st-papier-soft);
+  border-bottom: 1px solid var(--st-beton);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--st-stein);
+}
+.preview-frame .dots { display: flex; gap: 5px; }
+.preview-frame .dots span {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--st-beton);
+  display: block;
+}
+
+/* Mock nav */
+.mock-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 40px;
+  border-bottom: 1px solid var(--st-beton);
+}
+.mock-nav .logo-lockup { font-size: 26px; color: var(--st-anthrazit); }
+.mock-nav .logo-lockup .dot { color: var(--st-signal); }
+.mock-nav nav { display: flex; gap: 32px; }
+.mock-nav nav a {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--st-graphit);
+  position: relative;
+}
+.mock-nav nav a.active { color: var(--st-anthrazit); }
+.mock-nav nav a.active::after {
+  content: "";
+  position: absolute;
+  bottom: -4px; left: 0;
+  height: 2px; width: 100%;
+  background: var(--st-signal);
+}
+.mock-nav .cta-group { display: flex; gap: 8px; }
+
+/* Mock hero */
+.mock-hero {
+  padding: 80px 40px 64px;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 56px;
+  align-items: end;
+  background:
+    linear-gradient(180deg, var(--st-papier) 0%, var(--st-papier-soft) 100%);
+  position: relative;
+  overflow: hidden;
+}
+.mock-hero::after {
+  content: "";
+  position: absolute;
+  right: -80px;
+  top: 50%;
+  transform: translateY(-50%) rotate(-8deg);
+  width: 380px; height: 380px;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(var(--st-signal-rgb),0.10), transparent 60%),
+    repeating-linear-gradient(
+      45deg,
+      transparent 0 10px,
+      rgba(var(--st-stahl-rgb),0.04) 10px 11px
+    );
+  border-radius: 50%;
+  pointer-events: none;
+}
+.mock-hero h1 {
+  font-size: clamp(38px, 4vw, 56px);
+}
+.mock-hero h1 em {
+  font-family: var(--font-akzent);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--st-stahl);
+}
+.mock-hero .lead {
+  font-size: 18px;
+  color: var(--st-graphit);
+  line-height: 1.5;
+  margin: 24px 0 32px;
+  max-width: 50ch;
+}
+.mock-hero .cta-row { display: flex; gap: 12px; align-items: center; }
+.mock-hero .side-fact {
+  border-left: 3px solid var(--st-signal);
+  padding: 8px 0 8px 20px;
+  display: grid;
+  gap: 14px;
+  position: relative;
+  z-index: 1;
+}
+.mock-hero .side-fact .fact {
+  display: grid;
+  gap: 2px;
+}
+.mock-hero .side-fact .k {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--st-stein);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.mock-hero .side-fact .v {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 20px;
+  color: var(--st-anthrazit);
+  letter-spacing: -0.01em;
+}
+.mock-hero .side-fact .v em {
+  font-family: var(--font-akzent);
+  font-style: italic;
+  color: var(--st-stahl);
+  font-weight: 400;
+}
+
+/* Mock leistungen preview */
+.mock-leistungen {
+  padding: 56px 40px 64px;
+}
+.mock-leistungen .preview-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  margin-bottom: 32px;
+  gap: 32px;
+}
+.mock-leistungen .preview-head h2 { font-size: 32px; }
+.mock-leistungen .preview-head p { color: var(--st-graphit); font-size: 14px; max-width: 36ch; }
+
+/* =========================================================
+   Footer
+   ========================================================= */
+.ds-footer {
+  background: var(--st-stahl-tief);
+  color: var(--st-papier-soft);
+  padding: 40px 0;
+}
+.ds-footer .row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  font-family: var(--font-body);
+  font-size: 13px;
+}
+.ds-footer .row .brand-wordmark { color: var(--st-papier-soft); font-size: 18px; }
+.ds-footer .row .brand-wordmark .dot { color: var(--st-signal); }
+.ds-footer .links { display: flex; gap: 24px; }
+.ds-footer .links a { color: var(--st-stein-hell); }
+.ds-footer .links a:hover { color: var(--st-weiss); }
+
+/* Responsive — minimal, for this DS doc */
+@media (max-width: 960px) {
+  .brand-grid, .section-head, .type-demo-card, .mock-hero { grid-template-columns: 1fr; gap: 32px; }
+  .swatch-grid, .leistung-grid, .spacing-grid { grid-template-columns: repeat(2, 1fr); }
+  .stat-bar { grid-template-columns: repeat(2, 1fr); }
+  .stat { border-bottom: 1px solid var(--st-beton); }
+  .stat:nth-child(2) { border-right: none; }
+  .mock-nav nav { display: none; }
+  .mock-hero { padding: 48px 24px; }
+  .mock-leistungen { padding: 40px 24px; }
+}
+
+/* Selection */
+::selection { background: rgba(var(--st-signal-rgb), 0.22); color: var(--st-anthrazit); }
+</style>
+</head>
+<body>
+
+<!-- =========================================================
+     Header
+     ========================================================= -->
+<header class="ds-header">
+  <div class="shell">
+    <span class="brand-wordmark">SEITtec<span class="dot">.</span></span>
+    <div style="margin-top: 56px; max-width: 24ch;">
+      <span class="eyebrow" style="color: var(--st-signal);">Designsystem · v1 · Entwurf</span>
+      <h1 style="margin-top: 20px;">Handwerk, das man <em style="font-family: var(--font-akzent); font-style: italic; font-weight: 400; color: var(--st-signal);">spürt</em>.<br/>Auftritt, der das zeigt.</h1>
+    </div>
+    <div class="meta">
+      <div><b>Geltungsbereich</b><br/>Website, Angebote, Beschilderung, Fahrzeuge</div>
+      <div><b>Geist</b><br/>Bodenständig · Modern · Verlässlich</div>
+      <div><b>Stand</b><br/>27. Mai 2026 · Erster Entwurf</div>
+    </div>
+  </div>
+</header>
+
+<!-- =========================================================
+     1 · Marke & Haltung
+     ========================================================= -->
+<section class="section">
+  <div class="shell">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">01 · Marke</span>
+        <div class="num">Haltung.</div>
+      </div>
+      <p class="lead">
+        SEITtec ist ein Handwerksbetrieb aus dem Ruhrgebiet — neun Leute, inhabergeführt, jeden Abend zuhause. Die Marke soll genau das tragen: <em class="serif" style="font-family: var(--font-akzent); font-style: italic; color: var(--st-stahl);">solide, ehrlich, zeitgemäß</em>. Kein Tech-Bro-Auftritt, keine Stockfoto-Lächeleien. Aber auch nicht der zwanzigste Handwerker-Webbaukasten mit Werkzeugkasten-Hero.
+      </p>
+    </div>
+
+    <div class="brand-grid">
+      <div class="principles">
+        <div class="principle">
+          <span class="idx">01</span>
+          <div>
+            <h4>Klar vor schön</h4>
+            <p>Inhalte führen. Was wir tun, wer wir sind, wo wir sind — in dieser Reihenfolge. Keine dekorative Sprache, keine Schmuckanimation.</p>
+          </div>
+        </div>
+        <div class="principle">
+          <span class="idx">02</span>
+          <div>
+            <h4>Werkzeuge, keine Marken-Aura</h4>
+            <p>Maße, Zahlen, Termine. Wer eine Alarmanlage sucht, sucht keine Markenphilosophie — sondern jemanden, der zuverlässig ist.</p>
+          </div>
+        </div>
+        <div class="principle">
+          <span class="idx">03</span>
+          <div>
+            <h4>Ruhrpott-Wärme statt Konzern-Kälte</h4>
+            <p>Stahlblau als Anker — vertrauenswürdig, technisch. Signal-Orange als Akzent — Hochofen, Sicherheitsweste, Handwerk.</p>
+          </div>
+        </div>
+        <div class="principle">
+          <span class="idx">04</span>
+          <div>
+            <h4>Du statt Sie — aber respektvoll</h4>
+            <p>Naheliegend für einen lokalen Betrieb. <em class="serif">"Ihr"</em> bleibt eine Option für Gewerbekunden auf Anfrage-Seiten und in Angeboten.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="logo-panel">
+        <span class="tag">Wortmarke · Entwurf</span>
+        <div class="logo-stack">
+          <div class="logo-row">
+            <span class="logo-lockup">SEITtec<span class="dot">.</span></span>
+            <span class="lbl">primär · Stahl + Signal</span>
+          </div>
+          <div class="logo-row">
+            <span class="logo-lockup logo-lockup--mono">SEITtec<span class="dot">.</span></span>
+            <span class="lbl">monochrom · Anthrazit</span>
+          </div>
+          <div class="logo-row dark">
+            <span class="logo-lockup logo-lockup--invert">SEITtec<span class="dot">.</span></span>
+            <span class="lbl">invertiert · für dunkle Flächen</span>
+          </div>
+          <div class="logo-row">
+            <span class="logo-lockup logo-lockup--small">SEITtec<span class="dot">.</span></span>
+            <span class="lbl">klein · ab 16px Höhe</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     2 · Farben
+     ========================================================= -->
+<section class="section alt">
+  <div class="shell">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">02 · Farbe</span>
+        <div class="num">Palette.</div>
+      </div>
+      <p class="lead">
+        Eine Ankerfarbe (<em class="serif">Stahlblau</em>) trägt den Auftritt. Eine Signalfarbe (<em class="serif">Orange</em>) markiert Handlung und Wärme. Der Rest ist warmes Grau — wie unverputzter Beton, geöltes Holz, ungebleichtes Papier. Niemals Schwarz auf Weiß.
+      </p>
+    </div>
+
+    <div class="color-section">
+      <h3>Marke</h3>
+      <div class="swatch-grid">
+        <div class="swatch on-dark">
+          <div class="chip" style="background: var(--st-stahl);"><span class="role">Primär · Anker</span></div>
+          <div class="info">
+            <span class="name">Stahlblau</span>
+            <span class="hex">#14375A · <span class="var">--st-stahl</span></span>
+          </div>
+        </div>
+        <div class="swatch on-dark">
+          <div class="chip" style="background: var(--st-stahl-tief);"><span class="role">Hover · Tiefe</span></div>
+          <div class="info">
+            <span class="name">Stahl tief</span>
+            <span class="hex">#0E2640 · <span class="var">--st-stahl-tief</span></span>
+          </div>
+        </div>
+        <div class="swatch on-dark">
+          <div class="chip" style="background: var(--st-signal);"><span class="role">Akzent · CTA</span></div>
+          <div class="info">
+            <span class="name">Signal-Orange</span>
+            <span class="hex">#E76F2C · <span class="var">--st-signal</span></span>
+          </div>
+        </div>
+        <div class="swatch on-dark">
+          <div class="chip" style="background: var(--st-signal-tief);"><span class="role">Hover</span></div>
+          <div class="info">
+            <span class="name">Signal tief</span>
+            <span class="hex">#C45A1E · <span class="var">--st-signal-tief</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="color-section">
+      <h3>Neutrale</h3>
+      <div class="swatch-grid">
+        <div class="swatch on-dark">
+          <div class="chip" style="background: var(--st-anthrazit);"><span class="role">Text · Surface dunkel</span></div>
+          <div class="info">
+            <span class="name">Anthrazit</span>
+            <span class="hex">#16191C · <span class="var">--st-anthrazit</span></span>
+          </div>
+        </div>
+        <div class="swatch on-dark">
+          <div class="chip" style="background: var(--st-graphit);"><span class="role">Text Sek.</span></div>
+          <div class="info">
+            <span class="name">Graphit</span>
+            <span class="hex">#353A40 · <span class="var">--st-graphit</span></span>
+          </div>
+        </div>
+        <div class="swatch on-light">
+          <div class="chip" style="background: var(--st-stein);"><span class="role">Meta · Hint</span></div>
+          <div class="info">
+            <span class="name">Stein</span>
+            <span class="hex">#6B7480 · <span class="var">--st-stein</span></span>
+          </div>
+        </div>
+        <div class="swatch on-light">
+          <div class="chip" style="background: var(--st-beton); border-bottom: 1px solid var(--st-stein-hell);"><span class="role">Linie · Surface 2</span></div>
+          <div class="info">
+            <span class="name">Beton</span>
+            <span class="hex">#E0DED8 · <span class="var">--st-beton</span></span>
+          </div>
+        </div>
+        <div class="swatch on-light">
+          <div class="chip" style="background: var(--st-papier);"><span class="role">Canvas</span></div>
+          <div class="info">
+            <span class="name">Papier</span>
+            <span class="hex">#F4F1EB · <span class="var">--st-papier</span></span>
+          </div>
+        </div>
+        <div class="swatch on-light">
+          <div class="chip" style="background: var(--st-papier-soft);"><span class="role">Canvas alt</span></div>
+          <div class="info">
+            <span class="name">Papier soft</span>
+            <span class="hex">#F9F7F2 · <span class="var">--st-papier-soft</span></span>
+          </div>
+        </div>
+        <div class="swatch on-light">
+          <div class="chip" style="background: var(--st-weiss); border: 1px solid var(--st-beton);"><span class="role" style="color: var(--st-stein);">Karten · Modal</span></div>
+          <div class="info">
+            <span class="name">Weiß</span>
+            <span class="hex">#FFFFFF · <span class="var">--st-weiss</span></span>
+          </div>
+        </div>
+        <div class="swatch on-dark">
+          <div class="chip" style="background: var(--st-stahl-soft);"><span class="role">Sekundär</span></div>
+          <div class="info">
+            <span class="name">Stahl weich</span>
+            <span class="hex">#2A547C · <span class="var">--st-stahl-soft</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="color-section">
+      <h3>Funktional</h3>
+      <div class="swatch-grid">
+        <div class="swatch on-dark">
+          <div class="chip" style="background: var(--st-ok);"><span class="role">Bestätigt</span></div>
+          <div class="info"><span class="name">OK</span><span class="hex">#3F8A5C · <span class="var">--st-ok</span></span></div>
+        </div>
+        <div class="swatch on-dark">
+          <div class="chip" style="background: var(--st-warn);"><span class="role">Hinweis</span></div>
+          <div class="info"><span class="name">Warn</span><span class="hex">#C8941E · <span class="var">--st-warn</span></span></div>
+        </div>
+        <div class="swatch on-dark">
+          <div class="chip" style="background: var(--st-fehler);"><span class="role">Fehler</span></div>
+          <div class="info"><span class="name">Fehler</span><span class="hex">#B43B2E · <span class="var">--st-fehler</span></span></div>
+        </div>
+        <div class="swatch on-light">
+          <div class="chip" style="background: var(--st-stein-hell);"><span class="role">Deaktiviert</span></div>
+          <div class="info"><span class="name">Stein hell</span><span class="hex">#A6ADB5 · <span class="var">--st-stein-hell</span></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h3 style="font-family: var(--font-display); font-weight: 500; font-size: 16px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--st-stein); margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--st-beton);">Verteilung — Faustregel</h3>
+      <div class="usage-band">
+        <div class="ub-papier">50 % Papier</div>
+        <div class="ub-weiss">20 % Weiß</div>
+        <div class="ub-anthr">10 %</div>
+        <div class="ub-stahl">10 %</div>
+        <div class="ub-signal">10 %</div>
+      </div>
+      <div class="usage-cap">
+        <div>Canvas, Sektionswechsel</div>
+        <div>Karten, Modals, Formulare</div>
+        <div>Anthrazit</div>
+        <div>Stahl</div>
+        <div>Signal</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     3 · Typografie
+     ========================================================= -->
+<section class="section">
+  <div class="shell">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">03 · Typografie</span>
+        <div class="num">Stimme.</div>
+      </div>
+      <p class="lead">
+        <em class="serif">Bricolage Grotesque</em> für Überschriften — eine zeitgenössische Grotesk mit menschlichem Kern, optisch der "Söhne"-Welt nahe. <em class="serif">Geist</em> als Lesefont — technisch, klar. <em class="serif">Instrument Serif Italic</em> sparsam als Akzent für Zahlen und betonte Worte. <em class="serif">Geist Mono</em> für Meta, Labels und Spezifikationen.
+      </p>
+    </div>
+
+    <div class="type-stack">
+      <div class="type-row">
+        <div class="meta-col">
+          <span class="label">H1 · Hero</span>
+          <span class="spec">Bricolage Grotesque<br/>500 · 64px / 1.02 · −0.03em</span>
+        </div>
+        <div class="demo demo--h1">Sicherheit. Strom. <em class="serif">Verbindung.</em></div>
+      </div>
+      <div class="type-row">
+        <div class="meta-col">
+          <span class="label">H2 · Sektion</span>
+          <span class="spec">Bricolage Grotesque<br/>500 · 40px / 1.08 · −0.02em</span>
+        </div>
+        <div class="demo demo--h2">Was wir für dich tun</div>
+      </div>
+      <div class="type-row">
+        <div class="meta-col">
+          <span class="label">H3 · Karte</span>
+          <span class="spec">Bricolage Grotesque<br/>500 · 24px / 1.2 · −0.01em</span>
+        </div>
+        <div class="demo demo--h3">Sicherheitstechnik &amp; Einbruchschutz</div>
+      </div>
+      <div class="type-row">
+        <div class="meta-col">
+          <span class="label">Lead</span>
+          <span class="spec">Geist · 400 · 20px / 1.45</span>
+        </div>
+        <div class="demo demo--lead">Wir planen, installieren und betreuen — vom einzelnen Leuchtmittel bis zur kompletten Sicherheitsanlage.</div>
+      </div>
+      <div class="type-row">
+        <div class="meta-col">
+          <span class="label">Body</span>
+          <span class="spec">Geist · 400 · 16px / 1.65</span>
+        </div>
+        <div class="demo demo--body">Ein moderner Handwerksbetrieb für Sicherheits-, Elektro-, Informations- und Telekommunikationstechnik — zentral in Essen, fokussiert auf das Ruhrgebiet und NRW. Unsere Mitarbeiter sind jeden Abend bei ihren Liebsten zuhause.</div>
+      </div>
+      <div class="type-row">
+        <div class="meta-col">
+          <span class="label">Akzent</span>
+          <span class="spec">Instrument Serif<br/>Italic · 400 · 44px</span>
+        </div>
+        <div class="demo demo--akzent">Seit 2021 in Essen.</div>
+      </div>
+      <div class="type-row">
+        <div class="meta-col">
+          <span class="label">Klein</span>
+          <span class="spec">Geist · 400 · 13px / 1.55</span>
+        </div>
+        <div class="demo demo--small">Belfortstr. 9, 45138 Essen · HRB 33188 Essen · Geschäftsführer Robert A. Pollmann &amp; André Köhler</div>
+      </div>
+      <div class="type-row">
+        <div class="meta-col">
+          <span class="label">Mono · Meta</span>
+          <span class="spec">Geist Mono · 400 · 13px</span>
+        </div>
+        <div class="demo demo--mono">REF · 2025-04 — Alarmanlage, EFH Rüttenscheid, KNX-gekoppelt</div>
+      </div>
+      <div class="type-row">
+        <div class="meta-col">
+          <span class="label">Eyebrow</span>
+          <span class="spec">Geist · 600 · 11px<br/>0.16em · UPPERCASE · Signal</span>
+        </div>
+        <div class="demo"><span class="eyebrow">Leistung 02 · Elektrotechnik</span></div>
+      </div>
+    </div>
+
+    <div class="type-demo-card">
+      <div class="num-block">09</div>
+      <div>
+        <span class="eyebrow" style="color: var(--st-signal);">Pairing-Demo</span>
+        <h2 style="margin-top: 16px;">Neun Leute,<br/>ein <em class="serif">Versprechen</em>.</h2>
+        <p style="margin-top: 20px; color: var(--st-graphit); font-size: 16px; line-height: 1.65; max-width: 44ch;">
+          Inhabergeführt, im Ruhrgebiet verwurzelt. Wir nehmen den Leuchtmittelwechsel genauso ernst wie die Sicherheitsanlage für ein Bürogebäude — und gehen abends pünktlich nach Hause.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     4 · Spacing
+     ========================================================= -->
+<section class="section alt">
+  <div class="shell">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">04 · Spacing</span>
+        <div class="num">Raster.</div>
+      </div>
+      <p class="lead">
+        4er-Skala, großzügig und konsequent. Sektionen atmen mit 96 px vertikalem Padding. Eckradien bleiben fast unsichtbar (2 – 8 px) — kantig wirkt im Handwerks-Kontext souveräner als verspielt-weich.
+      </p>
+    </div>
+
+    <div class="spacing-grid">
+      <div class="space-card"><div class="bar" style="width: 4px;"></div><div class="spec"><span>--s-1</span><b>4 px</b></div></div>
+      <div class="space-card"><div class="bar" style="width: 8px;"></div><div class="spec"><span>--s-2</span><b>8 px</b></div></div>
+      <div class="space-card"><div class="bar" style="width: 12px;"></div><div class="spec"><span>--s-3</span><b>12 px</b></div></div>
+      <div class="space-card"><div class="bar" style="width: 16px;"></div><div class="spec"><span>--s-4</span><b>16 px</b></div></div>
+      <div class="space-card"><div class="bar" style="width: 24px;"></div><div class="spec"><span>--s-6</span><b>24 px</b></div></div>
+      <div class="space-card"><div class="bar" style="width: 32px;"></div><div class="spec"><span>--s-8</span><b>32 px</b></div></div>
+      <div class="space-card"><div class="bar" style="width: 48px;"></div><div class="spec"><span>--s-12</span><b>48 px</b></div></div>
+      <div class="space-card"><div class="bar" style="width: 96px;"></div><div class="spec"><span>--s-24</span><b>96 px</b></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     5 · Buttons & Form
+     ========================================================= -->
+<section class="section">
+  <div class="shell">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">05 · Interaktion</span>
+        <div class="num">Buttons<br/>&amp; Form.</div>
+      </div>
+      <p class="lead">
+        Buttons sind nüchtern: ALL CAPS, getrackt, fast quadratisch in der Höhe, mit dezentem Pfeil-Icon. Signal-Orange für die wichtigste Handlung (Termin anfragen), Stahlblau für sekundäre, Outline für tertiäre.
+      </p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start;">
+      <div>
+        <h4 style="margin-bottom: 24px;">Buttons</h4>
+        <div class="btn-row">
+          <button class="btn btn--primary">Termin anfragen <span class="arrow"></span></button>
+          <button class="btn btn--secondary">Mehr erfahren</button>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn--outline">Leistungen ansehen</button>
+          <button class="btn btn--ghost">Zur Referenz <span class="arrow"></span></button>
+        </div>
+        <div class="btn-row">
+          <button class="btn btn--primary" disabled style="opacity: 0.4; cursor: not-allowed;">Deaktiviert</button>
+          <button class="btn btn--primary" style="padding: 9px 16px; font-size: 11px;">Klein · Sek.</button>
+        </div>
+
+        <div style="margin-top: 48px;">
+          <h4 style="margin-bottom: 16px;">Link-Stil</h4>
+          <p class="demo--body">Wir betreuen vom <a href="#" style="color: var(--st-stahl); text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 4px; text-decoration-color: var(--st-signal);">Leuchtmittelwechsel</a> bis zur kompletten Anlage. Schreib uns einfach — wir sind <a href="#" style="color: var(--st-stahl); text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 4px; text-decoration-color: var(--st-signal);">jederzeit erreichbar</a>.</p>
+        </div>
+      </div>
+
+      <div>
+        <h4 style="margin-bottom: 24px;">Formular</h4>
+        <form class="field-stack" onsubmit="event.preventDefault();">
+          <div class="field">
+            <label>Name <span class="req">*</span></label>
+            <input type="text" placeholder="z. B. Maria Schmidt" />
+          </div>
+          <div class="field">
+            <label>Womit können wir helfen? <span class="req">*</span></label>
+            <select>
+              <option>Sicherheitstechnik · Einbruchschutz</option>
+              <option>Elektrotechnik</option>
+              <option>Informationstechnik</option>
+              <option>Telekommunikation</option>
+              <option>Sonstiges / Ich weiß noch nicht</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Worum geht's?</label>
+            <textarea placeholder="Kurz beschreiben — Ort, ungefährer Umfang, Wunschtermin"></textarea>
+            <span class="hint">Wir melden uns innerhalb eines Werktags.</span>
+          </div>
+          <div>
+            <button class="btn btn--primary" style="width: 100%;">Anfrage senden <span class="arrow"></span></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     6 · Komponenten
+     ========================================================= -->
+<section class="section alt">
+  <div class="shell">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">06 · Komponenten</span>
+        <div class="num">Bausteine.</div>
+      </div>
+      <p class="lead">
+        Die wichtigsten wiederkehrenden Elemente: Leistungs-Karten, Zahlen-Bar, Referenz-Zitat. Eckig, ohne dekorative Schatten, mit klarem Vorher-Nachher beim Hover.
+      </p>
+    </div>
+
+    <h4 style="margin-bottom: 16px; color: var(--st-stein); font-family: var(--font-display); font-weight: 500; font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase;">Leistungs-Karten</h4>
+    <div class="leistung-grid">
+      <div class="leistung-card">
+        <span class="num">01 / 04</span>
+        <svg class="icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 4 L31 9 V18 C31 25 25 30 18 32 C11 30 5 25 5 18 V9 Z" />
+          <path d="M13 18 L17 22 L24 14" />
+        </svg>
+        <div>
+          <h3>Sicherheits&shy;technik</h3>
+          <p>Alarmanlagen, Videoüberwachung, mechanischer und elektronischer Einbruchschutz — von der Bestandsaufnahme bis zur Inbetriebnahme.</p>
+        </div>
+        <span class="more">Zur Leistung</span>
+      </div>
+
+      <div class="leistung-card">
+        <span class="num">02 / 04</span>
+        <svg class="icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 4 L9 20 H17 L14 32 L27 14 H19 Z" />
+        </svg>
+        <div>
+          <h3>Elektrotechnik</h3>
+          <p>Vom Leuchtmittel-Wechsel bis zur kompletten Sanierung. PV-Anlagen, Batteriespeicher, KNX-Smart-Home — ganzheitlich geplant.</p>
+        </div>
+        <span class="more">Zur Leistung</span>
+      </div>
+
+      <div class="leistung-card">
+        <span class="num">03 / 04</span>
+        <svg class="icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="9" width="26" height="18" rx="1" />
+          <path d="M5 13 H31" />
+          <circle cx="10" cy="11" r="0.8" fill="currentColor" />
+          <circle cx="13" cy="11" r="0.8" fill="currentColor" />
+          <path d="M10 19 H16 M10 22 H22 M10 25 H18" />
+        </svg>
+        <div>
+          <h3>Informations&shy;technik</h3>
+          <p>Netzwerke, Server, WLAN-Ausleuchtung — für Büro, Praxis, Werkstatt. Geplant, verlegt, betreut.</p>
+        </div>
+        <span class="more">Zur Leistung</span>
+      </div>
+
+      <div class="leistung-card">
+        <span class="num">04 / 04</span>
+        <svg class="icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 20 C13 24 16 27 21 31 L25 27 C25 26 24 25 23 24 L21 22 C20 21 18 21 17 22 L16 23 C14 21 13 19 12 17 L13 16 C14 15 14 13 13 12 L11 10 C10 9 9 8 8 8 L4 12 C8 17 9 20 9 20 Z" />
+          <path d="M22 6 C26 6 30 10 30 14" />
+          <path d="M22 12 C24 12 26 14 26 16" />
+        </svg>
+        <div>
+          <h3>Telekommunikation</h3>
+          <p>Eine funktionierende Telefonie ist das Rückgrat jedes Unternehmens. Wir entwickeln Lösungen und betreuen sie langfristig.</p>
+        </div>
+        <span class="more">Zur Leistung</span>
+      </div>
+    </div>
+
+    <h4 style="margin-top: 64px; margin-bottom: 0px; color: var(--st-stein); font-family: var(--font-display); font-weight: 500; font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase;">Zahlen-Bar</h4>
+    <div class="stat-bar">
+      <div class="stat">
+        <div class="num">9</div>
+        <div class="lbl">Mitarbeiter, inhabergeführt</div>
+      </div>
+      <div class="stat">
+        <div class="num">100<span class="unit">%</span></div>
+        <div class="lbl">Ruhrgebiet &amp; NRW — keine Montage-Wochen</div>
+      </div>
+      <div class="stat">
+        <div class="num">4</div>
+        <div class="lbl">Gewerke aus einer Hand</div>
+      </div>
+      <div class="stat">
+        <div class="num">24<span class="unit">h</span></div>
+        <div class="lbl">Antwortzeit auf Anfragen werktags</div>
+      </div>
+    </div>
+
+    <h4 style="margin-top: 64px; margin-bottom: 16px; color: var(--st-stein); font-family: var(--font-display); font-weight: 500; font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase;">Referenz-Zitat</h4>
+    <div class="quote-card">
+      <span class="q-mark">“</span>
+      <div>
+        <blockquote>
+          Schnelle Terminfindung, sympathisches Vorgespräch. Einbau termingerecht, Baustelle sauber verlassen. <em style="font-family: var(--font-akzent); font-style: italic; color: var(--st-signal); font-weight: 400;">Definitiv empfehlenswert.</em>
+        </blockquote>
+        <cite><b>M. Berger</b> · Privatkundin, Essen-Rüttenscheid · Alarmanlage 2025</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     7 · Beispielkomposition
+     ========================================================= -->
+<section class="section">
+  <div class="shell">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">07 · Komposition</span>
+        <div class="num">Wie alles zusammenwirkt.</div>
+      </div>
+      <p class="lead">
+        Eine erste Annäherung an die Startseite — nur der obere Bildschirm. Noch ohne Foto-Material (das kommt mit echten Aufnahmen der Mannschaft auf Baustellen — kein Stock).
+      </p>
+    </div>
+
+    <div class="preview-frame">
+      <div class="frame-bar">
+        <span class="dots"><span></span><span></span><span></span></span>
+        <span>seittec.de · Entwurf</span>
+      </div>
+
+      <div class="mock-nav">
+        <span class="logo-lockup">SEITtec<span class="dot">.</span></span>
+        <nav>
+          <a class="active" href="#">Start</a>
+          <a href="#">Leistungen</a>
+          <a href="#">Über uns</a>
+          <a href="#">Referenzen</a>
+          <a href="#">Kontakt</a>
+        </nav>
+        <div class="cta-group">
+          <button class="btn btn--outline" style="padding: 9px 16px; font-size: 11px;">0201 / 12 34 56</button>
+          <button class="btn btn--primary" style="padding: 9px 16px; font-size: 11px;">Termin anfragen</button>
+        </div>
+      </div>
+
+      <div class="mock-hero">
+        <div>
+          <span class="eyebrow">Handwerk · Essen · Ruhrgebiet</span>
+          <h1 style="margin-top: 20px;">Sicherheit. Strom. <em>Verbindung.</em><br/>Aus einer Hand.</h1>
+          <p class="lead">
+            Neun Leute, ein Versprechen: Sicherheits-, Elektro-, Informations- und Telekommunikationstechnik — geplant, eingebaut, betreut. Im Ruhrgebiet zuhause, abends auch.
+          </p>
+          <div class="cta-row">
+            <button class="btn btn--primary">Termin anfragen <span class="arrow"></span></button>
+            <button class="btn btn--ghost">Was wir tun <span class="arrow"></span></button>
+          </div>
+        </div>
+        <div class="side-fact">
+          <div class="fact">
+            <span class="k">Seit</span>
+            <span class="v"><em>2021</em> · in Essen</span>
+          </div>
+          <div class="fact">
+            <span class="k">Gewerke</span>
+            <span class="v">Vier · aus einer Hand</span>
+          </div>
+          <div class="fact">
+            <span class="k">Region</span>
+            <span class="v">Ruhrgebiet &amp; NRW</span>
+          </div>
+          <div class="fact">
+            <span class="k">Antwort</span>
+            <span class="v">Innerhalb <em>24 h</em></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mock-leistungen">
+        <div class="preview-head">
+          <div>
+            <span class="eyebrow">Was wir tun</span>
+            <h2 style="margin-top: 12px;">Vier Gewerke,<br/>ein Ansprechpartner.</h2>
+          </div>
+          <p>Wir betreuen vom einzelnen Leuchtmittelwechsel beim Endkunden bis zum Industrieauftrag — ganzheitlich, von Planung bis Service.</p>
+        </div>
+        <div class="leistung-grid">
+          <div class="leistung-card">
+            <span class="num">01</span>
+            <svg class="icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 4 L31 9 V18 C31 25 25 30 18 32 C11 30 5 25 5 18 V9 Z" />
+              <path d="M13 18 L17 22 L24 14" />
+            </svg>
+            <div>
+              <h3>Sicherheits&shy;technik</h3>
+              <p>Alarmanlagen, Video, Einbruchschutz.</p>
+            </div>
+            <span class="more">Zur Leistung</span>
+          </div>
+          <div class="leistung-card">
+            <span class="num">02</span>
+            <svg class="icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 4 L9 20 H17 L14 32 L27 14 H19 Z" />
+            </svg>
+            <div>
+              <h3>Elektrotechnik</h3>
+              <p>Installation, PV, Smart-Home.</p>
+            </div>
+            <span class="more">Zur Leistung</span>
+          </div>
+          <div class="leistung-card">
+            <span class="num">03</span>
+            <svg class="icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="5" y="9" width="26" height="18" rx="1" />
+              <path d="M5 13 H31" />
+              <circle cx="10" cy="11" r="0.8" fill="currentColor" />
+              <circle cx="13" cy="11" r="0.8" fill="currentColor" />
+              <path d="M10 19 H16 M10 22 H22 M10 25 H18" />
+            </svg>
+            <div>
+              <h3>Informations&shy;technik</h3>
+              <p>Netzwerk, Server, WLAN.</p>
+            </div>
+            <span class="more">Zur Leistung</span>
+          </div>
+          <div class="leistung-card">
+            <span class="num">04</span>
+            <svg class="icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 20 C13 24 16 27 21 31 L25 27 C25 26 24 25 23 24 L21 22 C20 21 18 21 17 22 L16 23 C14 21 13 19 12 17 L13 16 C14 15 14 13 13 12 L11 10 C10 9 9 8 8 8 L4 12 C8 17 9 20 9 20 Z" />
+              <path d="M22 6 C26 6 30 10 30 14" />
+              <path d="M22 12 C24 12 26 14 26 16" />
+            </svg>
+            <div>
+              <h3>Tele&shy;kommunikation</h3>
+              <p>Telefonie, Anlagen, Service.</p>
+            </div>
+            <span class="more">Zur Leistung</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 40px; padding: 24px 28px; background: var(--st-papier-soft); border-left: 3px solid var(--st-signal); display: grid; gap: 8px;">
+      <span class="eyebrow">Nächste Schritte</span>
+      <p style="font-size: 15px; color: var(--st-graphit); max-width: 70ch; line-height: 1.55;">
+        Wenn die Richtung passt, würde ich als nächstes <em class="serif" style="font-family: var(--font-akzent); font-style: italic; color: var(--st-stahl);">drei Varianten der Startseite</em> bauen — eine "ruhige" (so wie hier), eine mit großflächiger Foto-Inszenierung, und eine stärker text/zahlen-getriebene. Außerdem: Untermenüs für die vier Gewerke, ein Referenz-Layout, und das Kontakt-Formular in Vollausbau. Sag Bescheid, in welche Richtung wir vertiefen.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     Footer
+     ========================================================= -->
+<footer class="ds-footer">
+  <div class="shell">
+    <div class="row">
+      <span class="brand-wordmark">SEITtec<span class="dot">.</span></span>
+      <div class="links">
+        <a href="#">Designsystem v1</a>
+        <a href="#">Tokens</a>
+        <a href="#">Komponenten</a>
+        <a href="#">Komposition</a>
+      </div>
+      <span class="mono" style="color: var(--st-stein-hell);">Entwurf · 27. 05. 2026</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

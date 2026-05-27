@@ -1,0 +1,23 @@
+# OS
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+
+# Node (in case it gets added later)
+node_modules/
+
+# Build / cache scratch
+.cache/
+dist/
+build/
